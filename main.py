@@ -330,7 +330,16 @@ class ArithmeticTrainer(QWidget):
         self._remove_history_table()
 
     def show_end_screen(self):
+        # Compute summary
+        correct = sum(1 for h in self.history if h.get("ok"))
+        incorrect = len(self.history) - correct
+
+        # Return to home layout, then show summary counts
         self.show_home_screen()
+        self.result_label.setText(f"Correct Answers: {correct}\nIncorrect Answers: {incorrect}")
+        self.result_label.show()
+
+        # Build the scrollable history table below the summary
         self._build_history_table()
 
     # ---------------- Results table ----------------
